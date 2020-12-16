@@ -6,4 +6,6 @@ module.exports = {
   public: path.resolve(__dirname, '../public'),
 
   source: path.resolve(__dirname, '../src'),
+
+  stylesAlias: path.resolve(__dirname, '../src/styles/'),
 }

@@ -1,5 +1,6 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const paths = require('./paths')
 
@@ -10,6 +11,16 @@ module.exports = {
     filename: '[name].bundle.js',
     path: paths.build,
     publicPath: '/',
+  },
+
+  module: {
+    rules: [
+      { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader'] },
+
+      { test: /\.(?:ico|gif|png|jpg|jpeg)$/i, type: 'asset/resource' },
+
+      { test: /\.(woff(2)?|eot|ttf|otf|svg|)$/, type: 'asset/inline' },
+    ],
   },
 
   plugins: [
@@ -28,6 +39,8 @@ module.exports = {
       ],
     }),
 
+    new ESLintPlugin(),
+
     new HtmlWebpackPlugin({
       favicon: paths.source + '/images/favicon.png',
       filename: 'index.html',
@@ -36,13 +49,9 @@ module.exports = {
     }),
   ],
 
-  module: {
-    rules: [
-      { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader'] },
-
-      { test: /\.(?:ico|gif|png|jpg|jpeg)$/i, type: 'asset/resource' },
-
-      { test: /\.(woff(2)?|eot|ttf|otf|svg|)$/, type: 'asset/inline' },
-    ],
+  resolve: {
+    alias: {
+      '@/styles': paths.stylesAlias,
+    },
   },
 }

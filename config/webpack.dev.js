@@ -4,10 +4,6 @@ const paths = require('./paths')
 const webpack = require('webpack')
 
 module.exports = merge(common, {
-  mode: 'development',
-
-  devtool: 'inline-source-map',
-
   devServer: {
     compress: true,
     contentBase: paths.build,
@@ -16,6 +12,10 @@ module.exports = merge(common, {
     open: true,
     port: 8080,
   },
+
+  devtool: 'inline-source-map',
+
+  mode: 'development',
 
   module: {
     rules: [

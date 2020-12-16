@@ -5,8 +5,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const paths = require('./paths')
 
 module.exports = merge(common, {
-  mode: 'production',
-
   devtool: false,
 
   output: {
@@ -14,6 +12,8 @@ module.exports = merge(common, {
     publicPath: '/',
     filename: 'js/[name].[contenthash].bundle.js',
   },
+
+  mode: 'production',
 
   module: {
     rules: [
@@ -35,17 +35,10 @@ module.exports = merge(common, {
       },
     ],
   },
-  plugins: [
-    new MiniCssExtractPlugin({
-      chunkFilename: '[id].css',
-      filename: 'styles/[name].[contenthash].css',
-    }),
-  ],
+
   optimization: {
     minimize: true,
-
     minimizer: [new CssMinimizerPlugin(), '...'],
-
     runtimeChunk: {
       name: 'runtime',
     },
@@ -56,4 +49,11 @@ module.exports = merge(common, {
     maxAssetSize: 512000,
     maxEntrypointSize: 512000,
   },
+
+  plugins: [
+    new MiniCssExtractPlugin({
+      chunkFilename: '[id].css',
+      filename: 'styles/[name].[contenthash].css',
+    }),
+  ],
 })
